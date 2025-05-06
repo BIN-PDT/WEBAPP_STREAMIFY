@@ -2,8 +2,9 @@ import APIResponse from "../utils/APIResponse.js";
 import UserService from "../services/user.service.js";
 import { createAuthTokenPair } from "../utils/token.util.js";
 import * as cookiesUtils from "../utils/cookies.util.js";
+import { upsertStreamUser } from "../utils/stream.util.js";
 
-export async function signup(req, res) {
+export async function signup(req, res, next) {
 	const { cleanedData } = req;
 
 	if (await UserService.findByEmail(cleanedData.email)) {
@@ -13,6 +14,13 @@ export async function signup(req, res) {
 	}
 
 	const newUser = await UserService.create(cleanedData);
+	const { error } = await upsertStreamUser({
+		id: newUser.id,
+		name: newUser.fullName,
+		image: newUser.profilePic,
+	});
+	if (error) return next(error);
+
 	const tokenPair = createAuthTokenPair(newUser);
 	cookiesUtils.setAuthTokenPairToCookies(res, tokenPair);
 
