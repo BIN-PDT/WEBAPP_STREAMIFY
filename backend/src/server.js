@@ -1,14 +1,18 @@
 import express from "express";
-import "dotenv/config";
+import cookieParser from "cookie-parser";
 
+import settings from "./configs/settings.config.js";
+import connectDatabase from "./configs/database.config.js";
 import router from "./routes/index.route.js";
-
-const PORT = process.env.PORT;
 
 const app = express();
 
+app.use(cookieParser());
+app.use(express.json());
+
 app.use("/api", router);
 
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}.`);
+app.listen(settings.PORT, async () => {
+	console.log(`Server is running on port ${settings.PORT}.`);
+	await connectDatabase();
 });
