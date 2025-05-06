@@ -1,7 +1,7 @@
 import APIResponse from "../utils/APIResponse.js";
 import UserService from "../services/user.service.js";
 import { createAuthTokenPair } from "../utils/token.util.js";
-import { setAuthTokenPairToCookies } from "../utils/cookies.util.js";
+import * as cookiesUtils from "../utils/cookies.util.js";
 
 export async function signup(req, res) {
 	const { cleanedData } = req;
@@ -14,7 +14,7 @@ export async function signup(req, res) {
 
 	const newUser = await UserService.create(cleanedData);
 	const tokenPair = createAuthTokenPair(newUser);
-	setAuthTokenPairToCookies(res, tokenPair);
+	cookiesUtils.setAuthTokenPairToCookies(res, tokenPair);
 
 	return new APIResponse(201)
 		.setMessage("Signed up successfully.")
@@ -33,7 +33,7 @@ export async function signin(req, res) {
 	}
 
 	const tokenPair = createAuthTokenPair(existUser);
-	setAuthTokenPairToCookies(res, tokenPair);
+	cookiesUtils.setAuthTokenPairToCookies(res, tokenPair);
 
 	return new APIResponse(200)
 		.setMessage("Signed in successfully.")
@@ -41,4 +41,10 @@ export async function signin(req, res) {
 		.send(res);
 }
 
-export function signout(req, res) {}
+export function signout(req, res) {
+	cookiesUtils.removeAuthTokenPairOfCookies(res);
+
+	return new APIResponse(200)
+		.setMessage("Signed out successfully.")
+		.send(res);
+}

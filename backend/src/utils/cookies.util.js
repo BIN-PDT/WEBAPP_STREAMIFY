@@ -18,3 +18,12 @@ export function setAuthTokenPairToCookies(res, tokenPair) {
 	setAuthTokenToCookies(res, "jwt-access", tokenPair.accessToken);
 	setAuthTokenToCookies(res, "jwt-refresh", tokenPair.refreshToken);
 }
+
+export function removeAuthTokenOfCookies(res, key) {
+	res.clearCookie(key);
+}
+
+export function removeAuthTokenPairOfCookies(res) {
+	removeAuthTokenOfCookies(res, "jwt-access");
+	removeAuthTokenOfCookies(res, "jwt-refresh");
+}
