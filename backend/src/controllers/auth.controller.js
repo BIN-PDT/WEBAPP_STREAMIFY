@@ -1,7 +1,7 @@
-import settings from "../configs/settings.config.js";
 import APIResponse from "../utils/APIResponse.js";
 import UserService from "../services/user.service.js";
 import { createAuthTokenPair } from "../utils/token.util.js";
+import { setAuthTokenPairToCookies } from "../utils/cookies.util.js";
 
 export async function signup(req, res) {
 	const { cleanedData } = req;
@@ -14,19 +14,7 @@ export async function signup(req, res) {
 
 	const newUser = await UserService.create(cleanedData);
 	const tokenPair = createAuthTokenPair(newUser);
-
-	res.cookie("jwt-access", tokenPair.accessToken, {
-		maxAge: settings.ACCESS_TOKEN_EXPIRY_IN_MS,
-		httpOnly: true, // PREVENT XSS ATTACK.
-		sameSite: "strict", // PREVENT CRSF ATTACK.
-		secure: process.env.NODE_ENV === "production",
-	});
-	res.cookie("jwt-refresh", tokenPair.refreshToken, {
-		maxAge: settings.REFRESH_TOKEN_EXPIRY_IN_MS,
-		httpOnly: true,
-		sameSite: "strict",
-		secure: process.env.NODE_ENV === "production",
-	});
+	setAuthTokenPairToCookies(res, tokenPair);
 
 	return new APIResponse(201)
 		.setMessage("Signed up successfully.")
@@ -34,6 +22,23 @@ export async function signup(req, res) {
 		.send(res);
 }
 
-export function signin(req, res) {}
+export async function signin(req, res) {
+	const { cleanedData } = req;
+
+	const existUser = await UserService.findByEmail(cleanedData.email);
+	if (!existUser || !(await existUser.matchPassword(cleanedData.password))) {
+		return new APIResponse(401, false)
+			.setMessage("Invalid credentails.")
+			.send(res);
+	}
+
+	const tokenPair = createAuthTokenPair(existUser);
+	setAuthTokenPairToCookies(res, tokenPair);
+
+	return new APIResponse(200)
+		.setMessage("Signed in successfully.")
+		.setData({ user: existUser })
+		.send(res);
+}
 
 export function signout(req, res) {}

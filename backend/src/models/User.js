@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { hashPassword } from "../utils/password.util.js";
+import { comparePassword, hashPassword } from "../utils/password.util.js";
 
 const schema = new mongoose.Schema(
 	{
@@ -62,6 +62,10 @@ schema.set("toJSON", {
 		return ret;
 	},
 });
+
+schema.methods.matchPassword = function (plain) {
+	return comparePassword(plain, this.password);
+};
 
 schema.pre("save", async function (next) {
 	if (!this.isModified("password")) return next();
