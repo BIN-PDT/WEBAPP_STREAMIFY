@@ -21,3 +21,13 @@ export function createAuthTokenPair(user) {
 		refreshToken: createAuthToken(user, "refresh"),
 	};
 }
+
+export function decodeToken(token) {
+	const result = { data: null, error: null };
+	try {
+		result.data = jwt.verify(token, settings.SECRET_KEY);
+	} catch (error) {
+		result.error = error;
+	}
+	return result;
+}

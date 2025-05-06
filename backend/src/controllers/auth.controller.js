@@ -56,3 +56,27 @@ export function signout(req, res) {
 		.setMessage("Signed out successfully.")
 		.send(res);
 }
+
+export async function onboard(req, res, next) {
+	const { user, cleanedData } = req;
+
+	const updatedUser = await UserService.findByIdAndUpdate(
+		user.id,
+		{
+			...cleanedData,
+			isOnboarded: true,
+		},
+		{ new: true }
+	);
+	const { error } = await upsertStreamUser({
+		id: updatedUser.id,
+		name: updatedUser.fullName,
+		image: updatedUser.profilePic,
+	});
+	if (error) return next(error);
+
+	return new APIResponse(200)
+		.setMessage("Onboarded successfully.")
+		.setData({ user: updatedUser })
+		.send(res);
+}
