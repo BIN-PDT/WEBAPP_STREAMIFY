@@ -1,6 +1,10 @@
 import User from "../models/User.js";
 
 class UserService {
+	static find(filter) {
+		return User.find(filter);
+	}
+
 	static findById(id) {
 		return User.findById(id);
 	}
