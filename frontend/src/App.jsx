@@ -6,43 +6,54 @@ import SignInPage from "./pages/SignInPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ChatPage from "./pages/ChatPage";
 import CallPage from "./pages/CallPage";
+import PageLoader from "./components/PageLoader";
 import { Toaster } from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "./configs/axios.config";
+import useAuthUser from "./hooks/useAuthUser";
 
 const App = () => {
-	const { data: authData } = useQuery({
-		queryKey: ["authUser"],
-		queryFn: async () => {
-			const res = await axiosInstance.get("/auth/me");
-			return res.data;
-		},
-		retry: false,
-	});
-	const authUser = authData?.data.user;
+	const { isLoading, authUser } = useAuthUser();
+	const isAuthenticated = Boolean(authUser);
+	const isOnboarded = authUser?.isOnboarded;
 
+	if (isLoading) return <PageLoader />;
 	return (
 		<div>
 			<Routes>
 				<Route
 					path="/"
 					element={
-						authUser ? <HomePage /> : <Navigate to="/signin" />
+						isAuthenticated && isOnboarded ? (
+							<HomePage />
+						) : (
+							<Navigate
+								to={
+									!isAuthenticated ? "/signin" : "/onboarding"
+								}
+							/>
+						)
 					}
 				/>
 				<Route
 					path="/signup"
-					element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
+					element={
+						!isAuthenticated ? <SignUpPage /> : <Navigate to="/" />
+					}
 				/>
 				<Route
 					path="/signin"
-					element={!authUser ? <SignInPage /> : <Navigate to="/" />}
+					element={
+						!isAuthenticated ? <SignInPage /> : <Navigate to="/" />
+					}
 				/>
 				<Route
 					path="/onboarding"
 					element={
-						authUser ? (
-							<OnboardingPage />
+						isAuthenticated ? (
+							!isOnboarded ? (
+								<OnboardingPage />
+							) : (
+								<Navigate to="/" />
+							)
 						) : (
 							<Navigate to="/signin" />
 						)
@@ -51,7 +62,7 @@ const App = () => {
 				<Route
 					path="/notifications"
 					element={
-						authUser ? (
+						isAuthenticated ? (
 							<NotificationsPage />
 						) : (
 							<Navigate to="/signin" />
@@ -61,13 +72,21 @@ const App = () => {
 				<Route
 					path="/chat"
 					element={
-						authUser ? <ChatPage /> : <Navigate to="/signin" />
+						isAuthenticated ? (
+							<ChatPage />
+						) : (
+							<Navigate to="/signin" />
+						)
 					}
 				/>
 				<Route
 					path="/call"
 					element={
-						authUser ? <CallPage /> : <Navigate to="/signin" />
+						isAuthenticated ? (
+							<CallPage />
+						) : (
+							<Navigate to="/signin" />
+						)
 					}
 				/>
 			</Routes>
