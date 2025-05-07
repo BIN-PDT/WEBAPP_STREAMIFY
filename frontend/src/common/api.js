@@ -10,6 +10,11 @@ export async function signUp(data) {
 	return res.data;
 }
 
+export async function signIn(data) {
+	const res = await axiosInstance.post("/auth/signin", data);
+	return res.data;
+}
+
 export async function completeOnboarding(data) {
 	const res = await axiosInstance.post("/auth/onboarding", data);
 	return res.data;

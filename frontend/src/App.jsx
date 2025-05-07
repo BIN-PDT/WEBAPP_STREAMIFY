@@ -36,13 +36,21 @@ const App = () => {
 				<Route
 					path="/signup"
 					element={
-						!isAuthenticated ? <SignUpPage /> : <Navigate to="/" />
+						!isAuthenticated ? (
+							<SignUpPage />
+						) : (
+							<Navigate to={isOnboarded ? "/" : "/onboarding"} />
+						)
 					}
 				/>
 				<Route
 					path="/signin"
 					element={
-						!isAuthenticated ? <SignInPage /> : <Navigate to="/" />
+						!isAuthenticated ? (
+							<SignInPage />
+						) : (
+							<Navigate to={isOnboarded ? "/" : "/onboarding"} />
+						)
 					}
 				/>
 				<Route

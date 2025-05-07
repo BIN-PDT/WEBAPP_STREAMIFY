@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import {
 	CameraIcon,
 	LoaderIcon,
@@ -9,8 +7,8 @@ import {
 	ShuffleIcon,
 } from "lucide-react";
 import useAuthUser from "../hooks/useAuthUser";
-import { completeOnboarding } from "../common/api";
 import { LANGUAGES } from "../common/constants";
+import useOnboarding from "./../hooks/useOnboarding";
 
 const OnboardingPage = () => {
 	const { authUser } = useAuthUser();
@@ -23,14 +21,7 @@ const OnboardingPage = () => {
 		location: authUser?.location || "",
 	});
 
-	const queryClient = useQueryClient();
-	const { mutate: mutateOnboarding, isPending } = useMutation({
-		mutationFn: completeOnboarding,
-		onSuccess: () => {
-			toast.success("Profile onboarded successfully.");
-			queryClient.invalidateQueries({ queryKey: ["authUser"] });
-		},
-	});
+	const { isPending, mutateOnboarding } = useOnboarding();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
