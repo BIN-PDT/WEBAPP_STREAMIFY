@@ -11,6 +11,7 @@ const settings = {
 	REFRESH_TOKEN_EXPIRY_IN_MS: ms(process.env.JWT_REFRESH_TOKEN_EXPIRY),
 	GETSTREAM_API_KEY: process.env.GETSTREAM_API_KEY,
 	GETSTREAM_API_SECRET: process.env.GETSTREAM_API_SECRET,
+	FRONTEND_ORIGIN: process.env.FRONTEND_ORIGIN,
 };
 
 export default settings;
