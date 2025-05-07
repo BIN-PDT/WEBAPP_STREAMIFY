@@ -32,4 +32,6 @@ router.post(
 	controller.onboard
 );
 
+router.get("/me", authenticateJWTMiddleware, controller.authenticate);
+
 export default router;

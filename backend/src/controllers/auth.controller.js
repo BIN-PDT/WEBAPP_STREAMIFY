@@ -80,3 +80,9 @@ export async function onboard(req, res, next) {
 		.setData({ user: updatedUser })
 		.send(res);
 }
+
+export function authenticate(req, res) {
+	const { user } = req;
+
+	return new APIResponse(200).setData({ user }).send(res);
+}
