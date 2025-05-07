@@ -18,9 +18,7 @@ const schema = new mongoose.Schema(
 			default: "pending",
 		},
 	},
-	{
-		timestamps: true,
-	}
+	{ timestamps: true }
 );
 
 schema.set("toJSON", {

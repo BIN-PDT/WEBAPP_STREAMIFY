@@ -9,3 +9,13 @@ export async function upsertStreamUser(data) {
 	}
 	return result;
 }
+
+export function generateStreamToken(id) {
+	const result = { data: null, error: null };
+	try {
+		result.data = streamClient.createToken(id);
+	} catch (error) {
+		result.error = error;
+	}
+	return result;
+}

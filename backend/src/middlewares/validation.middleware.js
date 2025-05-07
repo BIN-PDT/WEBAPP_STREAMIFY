@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from "express-validator";
-import APIResponse from "../utils/APIResponse.js";
+import APIResponse from "../common/APIResponse.js";
 
 function validationMiddleware(req, res, next) {
 	const result = validationResult(req);

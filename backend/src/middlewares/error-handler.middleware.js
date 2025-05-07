@@ -1,4 +1,4 @@
-import APIResponse from "../utils/APIResponse.js";
+import APIResponse from "../common/APIResponse.js";
 
 function ErrorHandlerMiddleware(err, req, res, next) {
 	console.log(err);

@@ -1,4 +1,4 @@
-import APIResponse from "../utils/APIResponse.js";
+import APIResponse from "../common/APIResponse.js";
 import UserService from "../services/user.service.js";
 import { createAuthTokenPair } from "../utils/token.util.js";
 import * as cookiesUtils from "../utils/cookies.util.js";
