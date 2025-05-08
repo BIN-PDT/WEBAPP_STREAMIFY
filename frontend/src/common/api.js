@@ -1,8 +1,12 @@
 import { axiosInstance } from "../configs/axios.config";
 
 export async function getAuthUser() {
-	const res = await axiosInstance.get("/auth/me");
-	return res.data;
+	try {
+		const res = await axiosInstance.get("/auth/me");
+		return res.data;
+	} catch (error) {
+		return null;
+	}
 }
 
 export async function signUp(data) {
@@ -12,6 +16,11 @@ export async function signUp(data) {
 
 export async function signIn(data) {
 	const res = await axiosInstance.post("/auth/signin", data);
+	return res.data;
+}
+
+export async function signOut() {
+	const res = await axiosInstance.post("/auth/signout");
 	return res.data;
 }
 
