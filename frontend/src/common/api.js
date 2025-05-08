@@ -41,6 +41,12 @@ export async function getUserFriends() {
 	return resData.data;
 }
 
+export async function getFriendRequests() {
+	const res = await axiosInstance.get("/users/friends/requests");
+	const resData = res.data;
+	return resData.data;
+}
+
 export async function getOutgoingFriendRequests() {
 	const res = await axiosInstance.get("/users/friends/outgoing-requests");
 	const resData = res.data;
@@ -49,5 +55,10 @@ export async function getOutgoingFriendRequests() {
 
 export async function sendFriendRequest(id) {
 	const res = await axiosInstance.post(`/users/friends/requests/${id}/send`);
+	return res.data;
+}
+
+export async function acceptFriendRequest(id) {
+	const res = await axiosInstance.put(`/users/friends/requests/${id}/accept`);
 	return res.data;
 }
