@@ -44,7 +44,7 @@ export async function getOutgoingFriendRequests(req, res) {
 export async function getFriendRequests(req, res) {
 	const { user } = req;
 
-	const incommingRequests = await FriendService.findWithPopulate(
+	const incomingRequests = await FriendService.findWithPopulate(
 		{
 			recipient: user.id,
 			status: "pending",
@@ -60,7 +60,7 @@ export async function getFriendRequests(req, res) {
 	);
 
 	return new APIResponse(200)
-		.setData({ incommingRequests, acceptedRequests })
+		.setData({ incomingRequests, acceptedRequests })
 		.send(res);
 }
 
