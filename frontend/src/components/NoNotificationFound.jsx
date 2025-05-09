@@ -6,8 +6,10 @@ function NoNotificationFound() {
 			<div className="size-16 rounded-full bg-base-300 flex items-center justify-center mb-4">
 				<BellIcon className="size-8 text-base-content opacity-40" />
 			</div>
-			<h3 className="text-lg font-semibold mb-2">No notifications yet</h3>
-			<p className="text-base-content opacity-70 max-w-md">
+			<h3 className="text-lg font-semibold mb-2 font-newAmsterdam tracking-wider">
+				No notifications yet
+			</h3>
+			<p className="text-base-content opacity-70 max-w-md font-barlowCondensed italic">
 				When you receive friend requests or messages, they'll appear
 				here.
 			</p>

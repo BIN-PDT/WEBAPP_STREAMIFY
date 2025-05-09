@@ -1,12 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-	BellIcon,
-	ClockIcon,
-	MessageSquareIcon,
-	UserCheckIcon,
-} from "lucide-react";
-import { acceptFriendRequest, getFriendRequests } from "../common/api";
+import { BellIcon, ClockIcon, UserCheckIcon } from "lucide-react";
 import NoNotificationFound from "./../components/NoNotificationFound";
+import { acceptFriendRequest, getFriendRequests } from "../common/api";
+import { capitialize, timeSince } from "./../common/utils";
 
 const NotificationsPage = () => {
 	const queryClient = useQueryClient();
@@ -28,7 +24,7 @@ const NotificationsPage = () => {
 	return (
 		<div className="p-4 sm:p-6 lg:p-8">
 			<div className="container mx-auto max-w-4xl space-y-8">
-				<h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-6">
+				<h1 className="font-lobster text-2xl sm:text-3xl tracking-wide mb-5">
 					Notifications
 				</h1>
 
@@ -42,9 +38,9 @@ const NotificationsPage = () => {
 						{incomingRequests.length > 0 && (
 							<section className="space-y-4">
 								{/* HEADER */}
-								<h2 className="text-xl font-semibold flex items-center gap-2">
-									<UserCheckIcon className="h-5 w-5 text-primary" />
-									Friend Requests
+								<h2 className="font-newAmsterdam text-xl tracking-wide flex items-center gap-2">
+									<UserCheckIcon className="size-5 text-primary" />
+									New Connections
 									<span className="badge badge-primary ml-2">
 										{incomingRequests.length}
 									</span>
@@ -59,8 +55,8 @@ const NotificationsPage = () => {
 											<div className="card-body p-4">
 												<div className="flex items-center justify-between">
 													<div className="flex items-center gap-3">
-														{/* SENDER INFO */}
-														<div className="avatar w-14 h-14 rounded-full bg-base-300">
+														{/* SENDER PROFILEPIC */}
+														<div className="avatar size-14 rounded-full bg-base-300">
 															<img
 																src={
 																	request
@@ -75,7 +71,8 @@ const NotificationsPage = () => {
 															/>
 														</div>
 														{/* SENDER LANGUAGES */}
-														<div>
+														<div className="font-barlowCondensed">
+															{/* SENDER FULLNAME */}
 															<h3 className="font-semibold">
 																{
 																	request
@@ -83,29 +80,37 @@ const NotificationsPage = () => {
 																		.fullName
 																}
 															</h3>
-															<div className="flex flex-wrap gap-1.5 mt-1">
-																<span className="badge badge-secondary badge-sm">
+
+															<div className="flex flex-wrap gap-1.5 mt-2">
+																<span className="badge badge-secondary badge-md p-3 italic">
 																	Native:{" "}
-																	{
+																	{capitialize(
 																		request
 																			.sender
 																			.nativeLanguage
-																	}
+																	)}
 																</span>
-																<span className="badge badge-outline badge-sm">
+																<span className="badge badge-outline badge-md p-3 italic">
 																	Learning:{" "}
-																	{
+																	{capitialize(
 																		request
 																			.sender
 																			.learningLanguage
-																	}
+																	)}
 																</span>
 															</div>
+															{/* TIMESINCE */}
+															<p className="mt-3 text-xs flex items-center opacity-70">
+																<ClockIcon className="size-3 mr-1" />
+																{timeSince(
+																	request.createdAt
+																)}
+															</p>
 														</div>
 													</div>
 													{/* ACTION BUTTON */}
 													<button
-														className="btn btn-primary btn-sm"
+														className="btn btn-primary btn-sm min-w-20 font-newAmsterdam tracking-wider"
 														onClick={() =>
 															mutateAcceptFriendRequest(
 																request.id
@@ -126,12 +131,12 @@ const NotificationsPage = () => {
 						{acceptedRequests.length > 0 && (
 							<section className="space-y-4">
 								{/* HEADER */}
-								<h2 className="text-xl font-semibold flex items-center gap-2">
-									<BellIcon className="h-5 w-5 text-success" />
-									New Connections
+								<h2 className="font-newAmsterdam text-xl tracking-wide flex items-center gap-2">
+									<BellIcon className="size-5 text-success" />
+									New Friends
 								</h2>
 								{/* REQUESTS */}
-								<div className="space-y-3">
+								<div className="space-y-3 font-barlowCondensed">
 									{acceptedRequests.map((notification) => (
 										<div
 											key={notification.id}
@@ -154,30 +159,23 @@ const NotificationsPage = () => {
 														/>
 													</div>
 													<div className="flex-1">
-														<h3 className="font-semibold">
-															{
-																notification
-																	.recipient
-																	.fullName
-															}
-														</h3>
 														<p className="text-sm my-1">
-															{
-																notification
-																	.recipient
-																	.fullName
-															}{" "}
+															<h3 className="inline font-semibold">
+																{
+																	notification
+																		.recipient
+																		.fullName
+																}
+															</h3>{" "}
 															accepted your friend
-															request
+															request.
 														</p>
 														<p className="text-xs flex items-center opacity-70">
-															<ClockIcon className="h-3 w-3 mr-1" />
-															Recently
+															<ClockIcon className="size-3 mr-1" />
+															{timeSince(
+																notification.createdAt
+															)}
 														</p>
-													</div>
-													<div className="badge badge-success">
-														<MessageSquareIcon className="h-3 w-3 mr-1" />
-														New Friend
 													</div>
 												</div>
 											</div>
