@@ -20,8 +20,16 @@
 	@apply input input-bordered w-full font-barlowCondensed !outline-none !p-6;
 }
 
+.field-textarea {
+	@apply textarea textarea-bordered h-24 font-barlowCondensed !outline-none !rounded-xl !text-base;
+}
+
+.field-select {
+	@apply select select-bordered w-full font-barlowCondensed !outline-none !text-base;
+}
+
 .field-button {
-	@apply btn btn-primary w-full mt-8 font-newAmsterdam text-lg tracking-wide;
+	@apply btn btn-primary w-full mt-8 font-newAmsterdam text-lg tracking-wide !font-normal;
 }
 
 /* CHAT & CALL */

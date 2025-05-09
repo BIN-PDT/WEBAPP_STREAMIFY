@@ -2,13 +2,12 @@ import { useState } from "react";
 import {
 	CameraIcon,
 	LoaderIcon,
-	MapPinIcon,
 	ShipWheelIcon,
 	ShuffleIcon,
 } from "lucide-react";
 import useAuthUser from "../hooks/useAuthUser";
-import { LANGUAGES } from "../common/constants";
 import useOnboarding from "./../hooks/useOnboarding";
+import { LANGUAGES } from "../common/constants";
 
 const OnboardingPage = () => {
 	const { authUser } = useAuthUser();
@@ -35,11 +34,11 @@ const OnboardingPage = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
+		<div className="min-h-screen bg-base-100 flex items-center justify-center p-4 sm:p-6 md:p-8">
 			<div className="card bg-base-200 w-full max-w-3xl shadow-xl">
 				<div className="card-body p-6 sm:p-8">
 					{/* TITLE */}
-					<h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">
+					<h1 className="font-lobster text-2xl sm:text-3xl font-bold text-center mb-6">
 						Complete Your Profile
 					</h1>
 					{/* FORM */}
@@ -61,13 +60,13 @@ const OnboardingPage = () => {
 								)}
 							</div>
 							{/* GENERATE RANDOM AVATAR BUTTON */}
-							<div className="flex items-center gap-2">
+							<div className="flex items-center">
 								<button
 									type="button"
 									onClick={handleRandomAvatar}
-									className="btn btn-accent"
+									className="btn btn-accent font-newAmsterdam tracking-wide !font-normal"
 								>
-									<ShuffleIcon className="size-4 mr-2" />
+									<ShuffleIcon className="size-4 mr-1" />
 									Generate Random Avatar
 								</button>
 							</div>
@@ -75,7 +74,7 @@ const OnboardingPage = () => {
 						{/* FULL NAME */}
 						<div className="form-control">
 							<label className="label">
-								<span className="label-text">Full Name</span>
+								<span className="field-label">Full Name</span>
 							</label>
 							<input
 								type="text"
@@ -87,17 +86,18 @@ const OnboardingPage = () => {
 										fullName: e.target.value,
 									})
 								}
-								className="input input-bordered w-full"
-								placeholder="Your full name"
+								className="field-input"
+								required
 							/>
 						</div>
 						{/* BIO */}
 						<div className="form-control">
 							<label className="label">
-								<span className="label-text">Bio</span>
+								<span className="field-label">Bio</span>
 							</label>
 							<textarea
 								name="bio"
+								placeholder="Tell others about yourself and your language learning goals"
 								value={formState.bio}
 								onChange={(e) =>
 									setFormState({
@@ -105,8 +105,8 @@ const OnboardingPage = () => {
 										bio: e.target.value,
 									})
 								}
-								className="textarea textarea-bordered h-24"
-								placeholder="Tell others about yourself and your language learning goals"
+								className="field-textarea"
+								required
 							/>
 						</div>
 						{/* LANGUAGES */}
@@ -114,7 +114,7 @@ const OnboardingPage = () => {
 							{/* NATIVE LANGUAGE */}
 							<div className="form-control">
 								<label className="label">
-									<span className="label-text">
+									<span className="field-label">
 										Native Language
 									</span>
 								</label>
@@ -127,7 +127,8 @@ const OnboardingPage = () => {
 											nativeLanguage: e.target.value,
 										})
 									}
-									className="select select-bordered w-full"
+									className="field-select"
+									required
 								>
 									<option value="">
 										Select your native language
@@ -145,7 +146,7 @@ const OnboardingPage = () => {
 							{/* LEARNING LANGUAGE */}
 							<div className="form-control">
 								<label className="label">
-									<span className="label-text">
+									<span className="field-label">
 										Learning Language
 									</span>
 								</label>
@@ -158,7 +159,8 @@ const OnboardingPage = () => {
 											learningLanguage: e.target.value,
 										})
 									}
-									className="select select-bordered w-full"
+									className="field-select"
+									required
 								>
 									<option value="">
 										Select language you're learning
@@ -177,13 +179,13 @@ const OnboardingPage = () => {
 						{/* LOCATION */}
 						<div className="form-control">
 							<label className="label">
-								<span className="label-text">Location</span>
+								<span className="field-label">Location</span>
 							</label>
-							<div className="relative">
-								<MapPinIcon className="absolute top-1/2 transform -translate-y-1/2 left-3 size-5 text-base-content opacity-70" />
+							<div>
 								<input
 									type="text"
 									name="location"
+									placeholder="City, Country"
 									value={formState.location}
 									onChange={(e) =>
 										setFormState({
@@ -191,14 +193,14 @@ const OnboardingPage = () => {
 											location: e.target.value,
 										})
 									}
-									className="input input-bordered w-full pl-10"
-									placeholder="City, Country"
+									className="field-input"
+									required
 								/>
 							</div>
 						</div>
 						{/* SUBMIT BUTTON */}
 						<button
-							className="btn btn-primary w-full"
+							className="!mt-10 field-button"
 							disabled={isPending}
 							type="submit"
 						>
@@ -206,7 +208,7 @@ const OnboardingPage = () => {
 								<LoaderIcon className="animate-spin size-5 mr-2" />
 							) : (
 								<>
-									<ShipWheelIcon className="size-5 mr-2" />
+									<ShipWheelIcon className="size-5" />
 									Complete Onboarding
 								</>
 							)}
