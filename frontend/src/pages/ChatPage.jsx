@@ -36,7 +36,7 @@ const ChatPage = () => {
 	useEffect(() => {
 		async function initChat() {
 			if (!authUser || !tokenData?.token) return;
-			console.log(tokenData.token);
+
 			try {
 				const client = StreamChat.getInstance(GETSTREAM_API_KEY);
 				// OPEN WEBSOCKET CONNECTION.
@@ -79,7 +79,7 @@ const ChatPage = () => {
 
 	if (loading || !chatClient || !channel) return <ChatLoader />;
 	return (
-		<div className="h-[91vh]">
+		<div className="h-full">
 			<Chat client={chatClient}>
 				<Channel channel={channel}>
 					<div className="w-full relative">

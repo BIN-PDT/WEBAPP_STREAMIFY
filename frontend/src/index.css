@@ -52,6 +52,10 @@
 
 /* CHAT & CALL */
 
+.str-chat {
+	--str-chat__font-family: "Barlow Condensed", sans-serif;
+}
+
 .str-chat__channel {
 	display: flex;
 	align-items: center;
@@ -70,6 +74,11 @@
 	overflow: hidden;
 }
 
+.str-chat__channel-header {
+	border-bottom: 1px solid #ddd;
+	@apply !px-4 !py-3;
+}
+
 .str-chat__list {
 	background-color: #ffffff;
 	padding: 12px;
@@ -81,4 +90,12 @@
 
 .str-chat__message-input {
 	border-top: 1px solid #ddd;
+}
+
+.str-chat__message-input-inner {
+	@apply gap-2 px-2 py-3;
+}
+
+.str-chat__message-input-inner textarea {
+	@apply !p-1;
 }

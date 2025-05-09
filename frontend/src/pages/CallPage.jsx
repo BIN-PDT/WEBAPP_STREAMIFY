@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAuthUser from "./../hooks/useAuthUser";
-import PageLoader from "./../components/PageLoader";
+import CallLoader from "./../components/CallLoader";
 import { getStreamToken } from "../common/api";
 import {
 	StreamVideo,
@@ -63,9 +63,9 @@ const CallPage = () => {
 		initCall();
 	}, [callId, authUser, tokenData]);
 
-	if (isLoading || connecting) return <PageLoader />;
+	if (isLoading || connecting) return <CallLoader />;
 	return (
-		<div className="h-screen flex flex-col items-center justify-center">
+		<div className="h-full flex flex-col items-center justify-center">
 			<div className="relative">
 				{client && call ? (
 					<StreamVideo client={client}>

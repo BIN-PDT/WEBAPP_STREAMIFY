@@ -12,7 +12,9 @@ const Layout = ({ children, showSidebar = false }) => {
 					{/* NAVBAR */}
 					<Navbar />
 					{/* DISPLAY */}
-					<main className="flex-1 overflow-y-auto">{children}</main>
+					<main className="flex-1 min-h-[calc(100vh-72px)]">
+						{children}
+					</main>
 				</div>
 			</div>
 		</div>
