@@ -27,7 +27,9 @@ const SignUpPage = () => {
 				{/* LEFT SIDE */}
 				<div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
 					{/* LOGO */}
-					<Logo />
+					<div className="mb-4">
+						<Logo />
+					</div>
 					{/* FORM */}
 					<div className="w-full">
 						<form onSubmit={handleSignUp}>

@@ -32,6 +32,24 @@
 	@apply btn btn-primary w-full mt-8 font-newAmsterdam text-lg tracking-wide !font-normal;
 }
 
+/* PAGE */
+
+.sidebar-choice {
+	@apply btn btn-ghost justify-start w-full gap-3 px-3 font-newAmsterdam tracking-wider !font-normal !rounded-xl;
+}
+
+.sidebar-choice svg {
+	@apply size-5 text-base-content opacity-70;
+}
+
+.navbar-choice {
+	@apply btn btn-ghost btn-circle;
+}
+
+.navbar-choice svg {
+	@apply size-6 text-base-content opacity-70;
+}
+
 /* CHAT & CALL */
 
 .str-chat__channel {
