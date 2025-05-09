@@ -1,16 +1,17 @@
 import { Navigate, Route, Routes } from "react-router";
+import { Toaster } from "react-hot-toast";
+import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import SignInPage from "./pages/SignInPage";
+import FriendsPage from "./pages/FriendsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ChatPage from "./pages/ChatPage";
 import CallPage from "./pages/CallPage";
 import PageLoader from "./components/PageLoader";
-import { Toaster } from "react-hot-toast";
-import { useThemeStore } from "./store/useThemeStore";
 import useAuthUser from "./hooks/useAuthUser";
-import Layout from "./components/Layout";
+import { useThemeStore } from "./store/useThemeStore";
 
 const App = () => {
 	const { theme } = useThemeStore();
@@ -69,6 +70,22 @@ const App = () => {
 							)
 						) : (
 							<Navigate to="/signin" />
+						)
+					}
+				/>
+				<Route
+					path="/friends"
+					element={
+						isAuthenticated && isOnboarded ? (
+							<Layout showSidebar={true}>
+								<FriendsPage />
+							</Layout>
+						) : (
+							<Navigate
+								to={
+									!isAuthenticated ? "/signin" : "/onboarding"
+								}
+							/>
 						)
 					}
 				/>
