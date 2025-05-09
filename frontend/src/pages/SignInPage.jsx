@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { ShipWheelIcon } from "lucide-react";
+import Logo from "./../components/Logo";
+import Illustration from "../components/Illustration";
 import useSignIn from "./../hooks/useSignIn";
 
 const SignInPage = () => {
@@ -25,40 +26,34 @@ const SignInPage = () => {
 				{/* LEFT SIDE */}
 				<div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
 					{/* LOGO */}
-					<div className="mb-4 flex items-center justify-start gap-2">
-						<ShipWheelIcon className="size-9 text-primary" />
-						<span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider">
-							Streamify
-						</span>
-					</div>
+					<Logo />
 					{/* FORM */}
 					<div className="w-full">
 						<form onSubmit={handleSignIn}>
 							{/* TITLE */}
 							<div className="space-y-4">
-								<div>
+								<div className="font-barlowCondensed">
 									<h2 className="text-xl font-semibold">
 										Welcome Back
 									</h2>
-									<p className="text-sm opacity-70">
+									<p className="italic opacity-70">
 										Sign in to your account to continue your
 										language journey
 									</p>
 								</div>
 							</div>
 							{/* FIELDS */}
-							<div className="flex flex-col gap-3">
+							<div className="mt-2 flex flex-col gap-2">
 								{/* EMAIL */}
-								<div className="form-control w-full space-y-2">
+								<div className="form-control w-full">
 									<label className="label">
-										<span className="label-text">
+										<span className="field-label">
 											Email
 										</span>
 									</label>
 									<input
 										type="email"
-										placeholder="user@example.com"
-										className="input input-bordered w-full"
+										className="field-input"
 										value={signInData.email}
 										onChange={(e) =>
 											setSignInData({
@@ -70,16 +65,15 @@ const SignInPage = () => {
 									/>
 								</div>
 								{/* PASSWORD */}
-								<div className="form-control w-full space-y-2">
+								<div className="form-control w-full">
 									<label className="label">
-										<span className="label-text">
+										<span className="field-label">
 											Password
 										</span>
 									</label>
 									<input
 										type="password"
-										placeholder="********"
-										className="input input-bordered w-full"
+										className="field-input tracking-wider"
 										value={signInData.password}
 										onChange={(e) =>
 											setSignInData({
@@ -93,7 +87,7 @@ const SignInPage = () => {
 							</div>
 							{/* SUBMIT BUTTON */}
 							<button
-								className="btn btn-primary w-full mt-4"
+								className="field-button"
 								type="submit"
 								disabled={isPending}
 							>
@@ -105,7 +99,7 @@ const SignInPage = () => {
 							</button>
 							{/* SIGNUP LINK */}
 							<div className="text-center mt-4">
-								<p className="text-sm">
+								<p className="font-barlowCondensed">
 									Don't have an account?{" "}
 									<Link
 										to="/signup"
@@ -119,28 +113,7 @@ const SignInPage = () => {
 					</div>
 				</div>
 				{/* RIGHT SIDE */}
-				<div className="hidden lg:flex w-full lg:w-1/2 bg-primary/10 items-center justify-center">
-					<div className="max-w-md p-8">
-						{/* ILLUSTRATION */}
-						<div className="relative aspect-square max-w-sm mx-auto">
-							<img
-								src="/signup-fg.png"
-								alt="Language connection illustration"
-								className="w-full h-full"
-							/>
-						</div>
-
-						<div className="text-center space-y-3 mt-6">
-							<h2 className="text-xl font-semibold">
-								Connect with language partners worldwide
-							</h2>
-							<p className="opacity-70">
-								Practice conversations, make friends, and
-								improve your language skills together
-							</p>
-						</div>
-					</div>
-				</div>
+				<Illustration />
 			</div>
 		</div>
 	);

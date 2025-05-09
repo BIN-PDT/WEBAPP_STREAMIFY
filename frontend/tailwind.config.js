@@ -4,7 +4,13 @@ import daisyui from "daisyui";
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				newAmsterdam: ["New Amsterdam", "sans-serif"],
+				lobster: ["Lobster", "sans-serif"],
+				barlowCondensed: ["Barlow Condensed", "sans-serif"],
+			},
+		},
 	},
 	plugins: [daisyui],
 	daisyui: {

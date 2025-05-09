@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { ShipWheelIcon } from "lucide-react";
+import Logo from "../components/Logo";
+import Illustration from "./../components/Illustration";
 import useSignUp from "./../hooks/useSignUp";
 
 const SignUpPage = () => {
@@ -26,40 +27,34 @@ const SignUpPage = () => {
 				{/* LEFT SIDE */}
 				<div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
 					{/* LOGO */}
-					<div className="mb-4 flex items-center justify-start gap-2">
-						<ShipWheelIcon className="size-9 text-primary" />
-						<span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider">
-							Streamify
-						</span>
-					</div>
+					<Logo />
 					{/* FORM */}
 					<div className="w-full">
 						<form onSubmit={handleSignUp}>
 							{/* TITLE */}
 							<div className="space-y-4">
-								<div>
+								<div className="font-barlowCondensed">
 									<h2 className="text-xl font-semibold">
-										Create an Account
+										Create Account
 									</h2>
-									<p className="text-sm opacity-70">
+									<p className="italic opacity-70">
 										Join Streamify and start your language
 										learning adventure!
 									</p>
 								</div>
 							</div>
 							{/* FIELDS */}
-							<div className="space-y-3">
+							<div className="mt-2 flex flex-col gap-2">
 								{/* FULLNAME */}
 								<div className="form-control w-full">
 									<label className="label">
-										<span className="label-text">
+										<span className="field-label">
 											Full Name
 										</span>
 									</label>
 									<input
 										type="text"
-										placeholder="John Doe"
-										className="input input-bordered w-full"
+										className="field-input"
 										value={signUpData.fullName}
 										onChange={(e) =>
 											setSignUpData({
@@ -73,14 +68,13 @@ const SignUpPage = () => {
 								{/* EMAIL */}
 								<div className="form-control w-full">
 									<label className="label">
-										<span className="label-text">
+										<span className="field-label">
 											Email
 										</span>
 									</label>
 									<input
 										type="email"
-										placeholder="john@gmail.com"
-										className="input input-bordered w-full"
+										className="field-input"
 										value={signUpData.email}
 										onChange={(e) =>
 											setSignUpData({
@@ -94,14 +88,13 @@ const SignUpPage = () => {
 								{/* PASSWORD */}
 								<div className="form-control w-full">
 									<label className="label">
-										<span className="label-text">
+										<span className="field-label">
 											Password
 										</span>
 									</label>
 									<input
 										type="password"
-										placeholder="********"
-										className="input input-bordered w-full"
+										className="field-input tracking-wider"
 										value={signUpData.password}
 										onChange={(e) =>
 											setSignUpData({
@@ -111,10 +104,6 @@ const SignUpPage = () => {
 										}
 										required
 									/>
-									<p className="text-xs opacity-70 mt-1">
-										Password must be at least 6 characters
-										long
-									</p>
 								</div>
 								{/* AGGREEMENT */}
 								<div className="form-control">
@@ -124,14 +113,14 @@ const SignUpPage = () => {
 											className="checkbox checkbox-sm"
 											required
 										/>
-										<span className="text-xs leading-tight">
+										<span className="text-sm leading-tight font-barlowCondensed italic">
 											I agree to the{" "}
 											<span className="text-primary hover:underline">
-												terms of service
+												Terms of Service
 											</span>{" "}
 											and{" "}
 											<span className="text-primary hover:underline">
-												privacy policy
+												Privacy Policy
 											</span>
 										</span>
 									</label>
@@ -139,7 +128,7 @@ const SignUpPage = () => {
 							</div>
 							{/* SUBMIT BUTTON */}
 							<button
-								className="btn btn-primary w-full"
+								className="field-button"
 								type="submit"
 								disabled={isPending}
 							>
@@ -151,7 +140,7 @@ const SignUpPage = () => {
 							</button>
 							{/* SIGNIN LINK */}
 							<div className="text-center mt-4">
-								<p className="text-sm">
+								<p className="font-barlowCondensed">
 									Already have an account?{" "}
 									<Link
 										to="/signin"
@@ -165,28 +154,7 @@ const SignUpPage = () => {
 					</div>
 				</div>
 				{/* RIGHT SIDE */}
-				<div className="hidden lg:flex w-full lg:w-1/2 bg-primary/10 items-center justify-center">
-					<div className="max-w-md p-8">
-						{/* ILLUSTRATION */}
-						<div className="relative aspect-square max-w-sm mx-auto">
-							<img
-								src="/signup-fg.png"
-								alt="Language connection illustration"
-								className="w-full h-full"
-							/>
-						</div>
-
-						<div className="text-center space-y-3 mt-6">
-							<h2 className="text-xl font-semibold">
-								Connect with language partners worldwide
-							</h2>
-							<p className="opacity-70">
-								Practice conversations, make friends, and
-								improve your language skills together
-							</p>
-						</div>
-					</div>
-				</div>
+				<Illustration />
 			</div>
 		</div>
 	);
