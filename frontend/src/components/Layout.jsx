@@ -1,7 +1,11 @@
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
-const Layout = ({ children, showSidebar = false }) => {
+const Layout = ({
+	children,
+	showSidebar = false,
+	constraintWindow = false,
+}) => {
 	return (
 		<div className="min-h-screen">
 			<div className="flex">
@@ -12,7 +16,11 @@ const Layout = ({ children, showSidebar = false }) => {
 					{/* NAVBAR */}
 					<Navbar />
 					{/* DISPLAY */}
-					<main className="flex-1 min-h-[calc(100vh-72px)]">
+					<main
+						className={`flex-1 min-h-[calc(100vh-72px)] ${
+							constraintWindow ? "max-h-[calc(100vh-72px)]" : ""
+						}`}
+					>
 						{children}
 					</main>
 				</div>

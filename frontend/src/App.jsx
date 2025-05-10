@@ -109,7 +109,7 @@ const App = () => {
 					path="/chat/:id"
 					element={
 						isAuthenticated && isOnboarded ? (
-							<Layout>
+							<Layout constraintWindow={true}>
 								<ChatPage />
 							</Layout>
 						) : (

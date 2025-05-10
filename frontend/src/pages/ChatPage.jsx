@@ -11,11 +11,11 @@ import {
 	Thread,
 	Window,
 } from "stream-chat-react";
-import toast from "react-hot-toast";
 import useAuthUser from "../hooks/useAuthUser";
 import ChatLoader from "./../components/ChatLoader";
 import CallButton from "./../components/CallButton";
 import { getStreamToken } from "../common/api";
+import { toastErrorMessage } from "../common/utils";
 
 const GETSTREAM_API_KEY = import.meta.env.VITE_GETSTREAM_API_KEY;
 
@@ -59,7 +59,9 @@ const ChatPage = () => {
 				setChannel(channel);
 			} catch (error) {
 				console.error(error);
-				toast.error("Couldn't establish connection. Please try again!");
+				toastErrorMessage({
+					message: "Couldn't establish connection. Please try again!",
+				});
 			} finally {
 				setLoading(false);
 			}

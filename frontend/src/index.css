@@ -62,6 +62,7 @@
 	justify-content: center;
 	background: linear-gradient(to bottom, #c9e8c9, #b7e7bb);
 	height: 100%;
+	padding: 0 24px;
 }
 
 .str-chat__container {
@@ -98,4 +99,8 @@
 
 .str-chat__message-input-inner textarea {
 	@apply !p-1;
+}
+
+.str-video__participant-details__name {
+	@apply !p-2 font-barlowCondensed;
 }

@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import useAuthUser from "./../hooks/useAuthUser";
-import CallLoader from "./../components/CallLoader";
-import { getStreamToken } from "../common/api";
 import {
 	StreamVideo,
 	StreamVideoClient,
@@ -15,6 +12,10 @@ import {
 	useCallStateHooks,
 } from "@stream-io/video-react-sdk";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
+import useAuthUser from "./../hooks/useAuthUser";
+import CallLoader from "./../components/CallLoader";
+import { getStreamToken } from "../common/api";
+import { toastErrorMessage } from "../common/utils";
 
 const GETSTREAM_API_KEY = import.meta.env.VITE_GETSTREAM_API_KEY;
 
@@ -54,7 +55,9 @@ const CallPage = () => {
 				setCall(callInstance);
 			} catch (error) {
 				console.error(error);
-				toast.error("Couldn't establish connection. Please try again!");
+				toastErrorMessage({
+					message: "Couldn't establish connection. Please try again!",
+				});
 			} finally {
 				setConnecting(false);
 			}
@@ -65,8 +68,8 @@ const CallPage = () => {
 
 	if (isLoading || connecting) return <CallLoader />;
 	return (
-		<div className="h-full flex flex-col items-center justify-center">
-			<div className="relative">
+		<div className="px-6 py-4 h-full flex flex-col items-center justify-center">
+			<div className="relative h-full">
 				{client && call ? (
 					<StreamVideo client={client}>
 						<StreamCall call={call}>
@@ -75,9 +78,9 @@ const CallPage = () => {
 					</StreamVideo>
 				) : (
 					<div className="flex items-center justify-center h-full">
-						<p>
-							Could not initialize call. Please refresh or try
-							again later.
+						<p className="font-newAmsterdam text-xl tracking-wider">
+							Couldn't initialize call. Please refresh or try
+							again later!
 						</p>
 					</div>
 				)}
