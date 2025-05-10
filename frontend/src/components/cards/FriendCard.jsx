@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import LanguageInfo from "./LanguageInfo";
+import LanguageInfo from "../generals/LanguageInfo";
 
 const FriendCard = ({ friend }) => {
 	return (

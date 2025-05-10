@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 import { Toaster } from "react-hot-toast";
-import Layout from "./components/Layout";
+import Layout from "./components/structures/Layout";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import OnboardingPage from "./pages/OnboardingPage";
@@ -9,9 +9,9 @@ import FriendsPage from "./pages/FriendsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ChatPage from "./pages/ChatPage";
 import CallPage from "./pages/CallPage";
-import PageLoader from "./components/PageLoader";
+import PageLoader from "./components/loaders/PageLoader";
 import useAuthUser from "./hooks/useAuthUser";
-import { useThemeStore } from "./store/useThemeStore";
+import { useThemeStore } from "./hooks/store/useThemeStore";
 
 const App = () => {
 	const { theme } = useThemeStore();

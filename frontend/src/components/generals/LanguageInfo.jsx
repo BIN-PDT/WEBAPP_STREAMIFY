@@ -1,5 +1,5 @@
-import { LANGUAGE_TO_FLAG } from "../common/constants";
-import { capitialize } from "../common/utils";
+import { LANGUAGE_TO_FLAG } from "../../common/constants";
+import { capitialize } from "../../common/utils";
 
 function getLanguageFlag(language) {
 	if (!language) return null;

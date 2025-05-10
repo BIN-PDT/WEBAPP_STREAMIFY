@@ -2,8 +2,8 @@ import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { MessageSquare } from "lucide-react";
-import NoRecommendedUserFound from "./../components/NoRecommendedUserFound";
-import RecommendedUserCard from "../components/RecommendedUserCard";
+import RecommendedUserCard from "../components/cards/RecommendedUserCard";
+import NoRecommendedUserFound from "../components/placeholders/NoRecommendedUserFound";
 import {
 	getOutgoingFriendRequests,
 	getRecommendedUsers,

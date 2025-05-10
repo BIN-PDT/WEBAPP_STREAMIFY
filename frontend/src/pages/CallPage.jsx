@@ -13,7 +13,7 @@ import {
 } from "@stream-io/video-react-sdk";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import useAuthUser from "./../hooks/useAuthUser";
-import CallLoader from "./../components/CallLoader";
+import CallLoader from "../components/loaders/CallLoader";
 import { getStreamToken } from "../common/api";
 import { toastErrorMessage } from "../common/utils";
 

@@ -1,5 +1,5 @@
 import { ClockIcon } from "lucide-react";
-import { capitialize, timeSince } from "../common/utils";
+import { capitialize, timeSince } from "../../common/utils";
 
 const NotificationCard = ({
 	request,

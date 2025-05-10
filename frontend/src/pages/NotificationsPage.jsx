@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { BellIcon, UserCheckIcon } from "lucide-react";
-import NoNotificationFound from "./../components/NoNotificationFound";
+import NotificationCard from "../components/cards/NotificationCard";
+import NoNotificationFound from "../components/placeholders/NoNotificationFound";
 import { acceptFriendRequest, getFriendRequests } from "../common/api";
-import NotificationCard from "../components/NotificationCard";
 
 const NotificationsPage = () => {
 	const queryClient = useQueryClient();

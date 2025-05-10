@@ -1,5 +1,5 @@
 import { CheckCircleIcon, MapPinIcon, UserPlusIcon } from "lucide-react";
-import LanguageInfo from "../components/LanguageInfo";
+import LanguageInfo from "../generals/LanguageInfo";
 
 const RecommendedUserCard = ({ user, isPending, handleSendFriendRequest }) => {
 	return (

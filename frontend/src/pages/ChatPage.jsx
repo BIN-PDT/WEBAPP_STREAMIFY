@@ -12,8 +12,8 @@ import {
 	Window,
 } from "stream-chat-react";
 import useAuthUser from "../hooks/useAuthUser";
-import ChatLoader from "./../components/ChatLoader";
-import CallButton from "./../components/CallButton";
+import ChatLoader from "../components/loaders/ChatLoader";
+import CallButton from "../components/generals/CallButton";
 import { getStreamToken } from "../common/api";
 import { toastErrorMessage } from "../common/utils";
 

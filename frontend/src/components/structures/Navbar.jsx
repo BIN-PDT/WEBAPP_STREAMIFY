@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router";
 import { BellIcon, HomeIcon, LogOutIcon } from "lucide-react";
-import ThemeSelector from "./ThemeSelector";
-import useSignOut from "./../hooks/useSignOut";
+import ThemeSelector from "../generals/ThemeSelector";
+import useSignOut from "../../hooks/useSignOut";
 
 const Navbar = () => {
 	const location = useLocation();

@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { UsersIcon } from "lucide-react";
-import FriendCard from "../components/FriendCard";
-import NoFriendsFound from "./../components/NoFriendFound";
+import FriendCard from "../components/cards/FriendCard";
+import NoFriendsFound from "../components/placeholders/NoFriendFound";
 import { getUserFriends } from "../common/api";
 
 const FriendsPage = () => {

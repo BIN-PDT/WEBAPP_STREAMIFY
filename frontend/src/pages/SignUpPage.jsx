@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import Logo from "../components/Logo";
-import Illustration from "./../components/Illustration";
+import Logo from "../components/generals/Logo";
+import Illustration from "../components/generals/Illustration";
 import useSignUp from "./../hooks/useSignUp";
 
 const SignUpPage = () => {
