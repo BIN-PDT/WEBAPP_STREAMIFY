@@ -5,6 +5,7 @@ import settings from "./configs/settings.config.js";
 import { frontendCORS } from "./configs/cors.config.js";
 import connectDatabase from "./configs/database.config.js";
 import router from "./routes/index.route.js";
+import connectFrontend from "./configs/frontend.config.js";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api", router);
+if (process.env.NODE_ENV === "production") connectFrontend(app);
 
 app.listen(settings.PORT, async () => {
 	console.log(`Server is running on port ${settings.PORT}.`);
