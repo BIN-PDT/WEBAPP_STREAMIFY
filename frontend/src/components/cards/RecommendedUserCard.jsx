@@ -3,19 +3,15 @@ import LanguageInfo from "../generals/LanguageInfo";
 
 const RecommendedUserCard = ({ user, isPending, handleSendFriendRequest }) => {
 	return (
-		<div className="card bg-base-200 hover:shadow-lg transition-all duration-300 font-barlowCondensed">
-			<div className="card-body p-5 space-y-4">
+		<div className="card bg-base-200 hover:shadow-lg transition-all duration-300">
+			<div className="card-body p-5 space-y-4 font-barlowCondensed">
 				<div className="flex flex-col justify-center items-center gap-3">
 					{/* PROFILEPIC */}
 					<div className="avatar size-20">
 						<img src={user.profilePic} alt={user.fullName} />
 					</div>
 					{/* FULLNAME */}
-					<div>
-						<h3 className="font-semibold text-lg">
-							{user.fullName}
-						</h3>
-					</div>
+					<h3 className="font-semibold truncate">{user.fullName}</h3>
 					{/* LANGUAGES WITH FLAGS */}
 					<LanguageInfo
 						nativeLanguage={user.nativeLanguage}
