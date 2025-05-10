@@ -56,7 +56,7 @@ export async function getFriendRequests(req, res) {
 			sender: user.id,
 			status: "accepted",
 		},
-		["recipient", "fullName profilePic"]
+		["recipient", "fullName profilePic nativeLanguage learningLanguage"]
 	);
 
 	return new APIResponse(200)
