@@ -17,7 +17,7 @@ const Sidebar = () => {
 			{/* USER PROFILE */}
 			<div className="flex flex-col items-center gap-3">
 				<div className="avatar">
-					<div className="size-16 rounded-full">
+					<div className="size-20">
 						<img src={authUser.profilePic} alt="User Avatar" />
 					</div>
 				</div>

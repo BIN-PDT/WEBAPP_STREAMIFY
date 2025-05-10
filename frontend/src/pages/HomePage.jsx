@@ -1,14 +1,15 @@
+import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CheckCircleIcon, MapPinIcon, UserPlusIcon } from "lucide-react";
+import { MessageSquare } from "lucide-react";
+import NoRecommendedUserFound from "./../components/NoRecommendedUserFound";
+import RecommendedUserCard from "../components/RecommendedUserCard";
 import {
 	getOutgoingFriendRequests,
 	getRecommendedUsers,
 	sendFriendRequest,
 } from "../common/api";
-import { getLanguageFlag } from "../components/FriendCard";
-import NoRecommendedUserFound from "./../components/NoRecommendedUserFound";
-import { capitialize } from "./../common/utils";
+import { toastErrorMessage } from "../common/utils";
 
 const HomePage = () => {
 	const [outgoingReqIds, setOutgoingReqIds] = useState(new Set());
@@ -30,6 +31,7 @@ const HomePage = () => {
 			queryClient.invalidateQueries({
 				queryKey: ["outgoingFriendRequests"],
 			}),
+		onError: (error) => toastErrorMessage(error.response.data),
 	});
 
 	useEffect(() => {
@@ -42,18 +44,23 @@ const HomePage = () => {
 		<div className="p-4 sm:p-6 lg:p-8">
 			<div className="container mx-auto space-y-10">
 				{/* HEADER */}
-				<div className="mb-6 sm:mb-8">
-					<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-						<div>
-							<h2 className="text-2xl sm:text-3xl font-lobster">
-								Meet New Learners
-							</h2>
-							<p className="opacity-70 font-barlowCondensed italic">
-								Discover perfect language exchange partners
-								based on your profile
-							</p>
-						</div>
+				<div className="flex flex-row justify-between gap-4">
+					<div>
+						<h2 className="text-2xl sm:text-3xl font-lobster">
+							Meet New Learners
+						</h2>
+						<p className="opacity-70 font-barlowCondensed italic">
+							Discover perfect language exchange partners based on
+							your profile
+						</p>
 					</div>
+					<Link
+						to="/friends"
+						className="btn btn-outline btn-sm font-newAmsterdam tracking-wider !font-normal !px-5 !min-h-11"
+					>
+						<MessageSquare className="mr-2 size-4" />
+						Chat With Friends
+					</Link>
 				</div>
 				{/* USERS */}
 				{isLoadingUsers ? (
@@ -65,88 +72,16 @@ const HomePage = () => {
 				) : (
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 						{users.map((user) => {
-							const hasReqSent = outgoingReqIds.has(user.id);
+							user.hasReqSent = outgoingReqIds.has(user.id);
 							return (
-								<div
+								<RecommendedUserCard
 									key={user.id}
-									className="card bg-base-200 hover:shadow-lg transition-all duration-300 font-barlowCondensed"
-								>
-									<div className="card-body p-5 space-y-4">
-										<div className="flex flex-col justify-center items-center gap-3">
-											{/* PROFILEPIC */}
-											<div className="avatar size-20 rounded-full">
-												<img
-													src={user.profilePic}
-													alt={user.fullName}
-												/>
-											</div>
-											{/* FULLNAME */}
-											<div>
-												<h3 className="font-semibold text-lg">
-													{user.fullName}
-												</h3>
-											</div>
-											{/* LANGUAGES WITH FLAGS */}
-											<div className="flex flex-wrap gap-2 italic">
-												<span className="badge badge-secondary text-sm px-3 py-4">
-													{getLanguageFlag(
-														user.nativeLanguage
-													)}
-													Native:{" "}
-													{capitialize(
-														user.nativeLanguage
-													)}
-												</span>
-												<span className="badge badge-outline text-sm px-3 py-4">
-													{getLanguageFlag(
-														user.learningLanguage
-													)}
-													Learning:{" "}
-													{capitialize(
-														user.learningLanguage
-													)}
-												</span>
-											</div>
-											{/* BIO */}
-											<div className="mt-2">
-												<p className="opacity-70">
-													{user.bio}
-												</p>
-											</div>
-										</div>
-										{/* LOCATION */}
-										<div className="absolute left-4 top-0 flex items-center text-sm opacity-70">
-											<MapPinIcon className="size-4 mr-1" />
-											<p className="max-w-20 overflow-hidden text-ellipsis">
-												{user.location}
-											</p>
-										</div>
-										{/* ACTION BUTTON */}
-										<button
-											className={`btn w-full mt-2 font-newAmsterdam tracking-wider !font-normal ${
-												hasReqSent
-													? "btn-disabled"
-													: "btn-primary"
-											}`}
-											onClick={() =>
-												mutateSendFriendRequest(user.id)
-											}
-											disabled={hasReqSent || isPending}
-										>
-											{hasReqSent ? (
-												<>
-													<CheckCircleIcon className="size-4" />
-													Request Sent
-												</>
-											) : (
-												<>
-													<UserPlusIcon className="size-4" />
-													Send Friend Request
-												</>
-											)}
-										</button>
-									</div>
-								</div>
+									user={user}
+									isPending={isPending}
+									handleSendFriendRequest={
+										mutateSendFriendRequest
+									}
+								/>
 							);
 						})}
 					</div>

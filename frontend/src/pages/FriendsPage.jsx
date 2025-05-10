@@ -16,16 +16,22 @@ const FriendsPage = () => {
 		<div className="p-4 sm:p-6 lg:p-8">
 			<div className="container mx-auto space-y-10">
 				{/* HEADER */}
-				<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-					<h2 className="text-2xl sm:text-3xl font-lobster">
-						Your Friends
-					</h2>
+				<div className="flex flex-row justify-between gap-4">
+					<div>
+						<h2 className="text-2xl sm:text-3xl font-lobster">
+							Your Friends
+						</h2>
+						<p className="opacity-70 font-barlowCondensed italic">
+							Conversation is a bridge that connects people and
+							builds understanding
+						</p>
+					</div>
 					<Link
 						to="/"
 						className="btn btn-outline btn-sm font-newAmsterdam tracking-wider !font-normal !px-5 !min-h-11"
 					>
 						<UsersIcon className="mr-2 size-4" />
-						More Friends
+						Make More Friends
 					</Link>
 				</div>
 				{/* FRIENDS */}
