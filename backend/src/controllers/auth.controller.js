@@ -1,6 +1,6 @@
 import APIResponse from "../common/APIResponse.js";
 import UserService from "../services/user.service.js";
-import { createToken } from "../utils/token.util.js";
+import { createToken, revokeToken } from "../utils/token.util.js";
 import { setTokenToCookies, delTokenOfCookies } from "../utils/cookies.util.js";
 import { upsertStreamUser } from "../utils/stream.util.js";
 
@@ -49,7 +49,10 @@ export async function signin(req, res) {
 		.send(res);
 }
 
-export function signout(req, res) {
+export async function signout(req, res) {
+	const { tokenPayload } = req;
+
+	await revokeToken(tokenPayload);
 	delTokenOfCookies(res);
 
 	return new APIResponse(200)

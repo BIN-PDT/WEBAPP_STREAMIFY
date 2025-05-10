@@ -1,7 +1,7 @@
 import settings from "../configs/settings.config.js";
 import APIResponse from "../common/APIResponse.js";
 import UserService from "../services/user.service.js";
-import { decodeToken } from "../utils/token.util.js";
+import { checkRevocation, decodeToken } from "../utils/token.util.js";
 
 export async function authenticateJWTMiddleware(req, res, next) {
 	const accessToken = req.cookies[settings.ACCESS_TOKEN_COOKIE_KEY];
@@ -20,6 +20,12 @@ export async function authenticateJWTMiddleware(req, res, next) {
 			.send(res);
 	}
 
+	if (await checkRevocation(data.jti)) {
+		return new APIResponse(401, false)
+			.setMessage("Unauthorized - Revoked token.")
+			.send(res);
+	}
+
 	const user = await UserService.findById(data.sub).select("-password");
 	if (!user) {
 		return new APIResponse(401, false)
@@ -27,6 +33,7 @@ export async function authenticateJWTMiddleware(req, res, next) {
 			.send(res);
 	}
 
+	req.tokenPayload = data;
 	req.user = user;
 	next();
 }
