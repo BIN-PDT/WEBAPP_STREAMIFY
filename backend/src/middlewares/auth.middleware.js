@@ -1,9 +1,10 @@
+import settings from "../configs/settings.config.js";
 import APIResponse from "../common/APIResponse.js";
 import UserService from "../services/user.service.js";
 import { decodeToken } from "../utils/token.util.js";
 
 export async function authenticateJWTMiddleware(req, res, next) {
-	const accessToken = req.cookies["jwt-access"];
+	const accessToken = req.cookies[settings.ACCESS_TOKEN_COOKIE_KEY];
 
 	if (!accessToken) {
 		return new APIResponse(401, false)

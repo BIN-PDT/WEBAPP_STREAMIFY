@@ -1,7 +1,7 @@
 import APIResponse from "../common/APIResponse.js";
 import UserService from "../services/user.service.js";
-import { createAuthTokenPair } from "../utils/token.util.js";
-import * as cookiesUtils from "../utils/cookies.util.js";
+import { createToken } from "../utils/token.util.js";
+import { setTokenToCookies, delTokenOfCookies } from "../utils/cookies.util.js";
 import { upsertStreamUser } from "../utils/stream.util.js";
 
 export async function signup(req, res, next) {
@@ -21,8 +21,8 @@ export async function signup(req, res, next) {
 	});
 	if (error) return next(error);
 
-	const tokenPair = createAuthTokenPair(newUser);
-	cookiesUtils.setAuthTokenPairToCookies(res, tokenPair);
+	const token = createToken(newUser);
+	setTokenToCookies(res, token);
 
 	return new APIResponse(201)
 		.setMessage("Signed up successfully.")
@@ -40,8 +40,8 @@ export async function signin(req, res) {
 			.send(res);
 	}
 
-	const tokenPair = createAuthTokenPair(existUser);
-	cookiesUtils.setAuthTokenPairToCookies(res, tokenPair);
+	const token = createToken(existUser);
+	setTokenToCookies(res, token);
 
 	return new APIResponse(200)
 		.setMessage("Signed in successfully.")
@@ -50,7 +50,7 @@ export async function signin(req, res) {
 }
 
 export function signout(req, res) {
-	cookiesUtils.removeAuthTokenPairOfCookies(res);
+	delTokenOfCookies(res);
 
 	return new APIResponse(200)
 		.setMessage("Signed out successfully.")
