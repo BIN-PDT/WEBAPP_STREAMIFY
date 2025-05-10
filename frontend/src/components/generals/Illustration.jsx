@@ -5,7 +5,7 @@ const Illustration = () => {
 				{/* ILLUSTRATION */}
 				<div className="relative aspect-square max-w-sm mx-auto">
 					<img
-						src="/signup-fg.png"
+						src="/illustration.png"
 						alt="Language connection illustration"
 						className="w-full h-full"
 					/>
